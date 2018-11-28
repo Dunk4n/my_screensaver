@@ -1,0 +1,61 @@
+/*
+** EPITECH PROJECT, 2018
+** window
+** File description:
+** window
+*/
+
+#ifndef WINDOW_H
+#define WINDOW_H
+
+#include <SFML/Graphics.h>
+#include <SFML/Window.h>
+
+typedef struct  my_framebuff_s
+{
+    int         width;
+    int         height;
+    sfUint8     *pixels;
+}               my_framebuff_t;
+
+typedef struct  my_window_s
+{
+    sfRenderWindow      *window;
+    sfEvent             event;
+    sfTexture           *texture;
+    sfSprite            *sprite;
+    my_framebuff_t      *buff;
+    sfVector2u          pos;
+    sfClock             *clock;
+    sfInt32             time;
+}               my_window_t;
+
+int             window();
+void            delete_framebuff(my_framebuff_t *framebuff);
+my_framebuff_t  *my_framebuff_create(int width, int height);
+int             check(my_window_t *win);
+void            update(my_window_t *win);
+void            put_pixel(my_framebuff_t *framebuff,
+int x, int y, sfColor color);
+void            draw_square(my_framebuff_t *buff, sfVector2u pos,
+unsigned int size, sfColor color);
+void            draw_vbord(my_framebuff_t *buff, sfVector2u pos, int r,
+sfColor color);
+my_window_t     *setwindow();
+void            draw_vinyl(my_framebuff_t *buff, sfVector2u pos, int *tab,
+sfColor color);
+my_framebuff_t  *rotate(my_framebuff_t *buff, float angl);
+my_framebuff_t  *blurring(my_framebuff_t *buff, int force);
+void            clean(my_framebuff_t *buff);
+int             vinyl(int *nb_scren, my_window_t *win);
+void            draw_line(my_framebuff_t *buff, sfVector2i *pos, sfColor color);
+void            draw_big_line(my_framebuff_t *buff, sfVector2i *pos, int force,
+sfColor color);
+void            draw_circle(my_framebuff_t *buff, sfVector2i cnt, int *tab,
+sfColor color);
+int     jeux_olym(int *nb_scren, my_window_t *win);
+
+# define LM 1920
+# define HM 1080
+
+#endif

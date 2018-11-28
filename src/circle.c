@@ -1,0 +1,28 @@
+/*
+** EPITECH PROJECT, 2018
+** src/circle
+** File description:
+** try not to segfault, good luck :)
+*/
+
+#include "my.h"
+#include "window.h"
+
+void    draw_circle(my_framebuff_t *buff, sfVector2i cnt, int *tab,
+sfColor color)
+{
+    int i = tab[2] * tab[0];
+    int j = tab[4] * tab[0];
+
+    while (i <= tab[3] * tab[0]) {
+        j = 0;
+        while (j <= tab[5] * tab[0]) {
+            (my_pow(cnt.x - tab[0] + j - cnt.x, 2) + my_pow(cnt.y - tab[0] + i -
+cnt.y, 2) <= my_pow(tab[0], 2) && my_pow(cnt.x - tab[0] + j - cnt.x, 2) +
+my_pow(cnt.y - tab[0] + i - cnt.y, 2) > my_pow(tab[1], 2)) ? put_pixel(buff,
+cnt.x - tab[0] + j, cnt.y - tab[0] + i, color) : 0;
+            j++;
+        }
+        i++;
+    }
+}
