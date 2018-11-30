@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2018
 ** set
 ** File description:
-** try not to segfault! good luck 
+** try not to segfault, good luck :)
 */
 
 #include <stdlib.h>
@@ -29,7 +29,7 @@ my_framebuff_t  *my_framebuff_create(int width, int height)
     return (buff);
 }
 
-my_window_t     *setwindow()
+my_window_t     *setwindow(void)
 {
     my_window_t *win = malloc(sizeof(my_window_t));
     sfVideoMode     video_mode;

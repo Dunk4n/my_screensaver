@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2018
 ** main
 ** File description:
-** try not to segfault! good luck 
+** try not to segfault, good luck :)
 */
 
 #include "my.h"
@@ -15,7 +15,7 @@ int     non(int ac)
     return (84);
 }
 
-int     flagh()
+int     flagh(void)
 {
     my_printf("animation rendering in a CSFML window.\n\nUSAGE\n");
     my_printf("./my_screensaver [OPTIONS] animation_id\nanimation_id");
@@ -28,7 +28,7 @@ int     flagh()
     return (0);
 }
 
-int     flagd()
+int     flagd(void)
 {
     my_printf("1: vinyl.\n");
     my_printf("2: jeux olympiques.\n");

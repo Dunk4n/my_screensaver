@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2018
 ** display
 ** File description:
-** try not to segfault! good luck 
+** try not to segfault, good luck :)
 */
 
 #include "window.h"
