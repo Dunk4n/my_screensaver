@@ -40,9 +40,9 @@ int     main(int ac, char **av)
     if (ac != 2)
         return (non(ac));
     if (av[1][0] == '-' && av[1][1] == 'h' && av[1][2] == '\0')
-        return (flagh(av[1]));
+        return (flagh());
     if (av[1][0] == '-' && av[1][1] == 'd' && av[1][2] == '\0')
-        return (flagd(av[1]));
+        return (flagd());
     if (my_getnbr(av[1]) >= 1 && my_getnbr(av[1]) <= 2)
         return (window(my_getnbr(av[1]) - 1));
     return (84);

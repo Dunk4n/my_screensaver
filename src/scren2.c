@@ -83,7 +83,7 @@ int     jeux_olym(int *nb_scren, my_window_t *win)
         draw_cadre(win);
         anime(tab, &cnt);
         *nb_scren += check(win);
-        sfSleep(sfMilliseconds(50));
+        //sfSleep(sfMilliseconds(50));
     }
     free(tab[0]);
     free(tab[1]);
