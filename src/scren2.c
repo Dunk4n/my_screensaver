@@ -27,15 +27,14 @@ void    draw_cadre(my_window_t *win)
 {
     sfVector2i  pos1[] = {{300, 250}, {1500, 150}};
     sfVector2i  pos2[] = {{500, 850}, {1700, 750}};
-    sfVector2i  pos3[] = {{320, 250}, {520, 850}};
+    sfVector2i  pos3[] = {{300, 250}, {500, 850}};
     sfVector2i  pos4[] = {{1500, 150}, {1700, 750}};
 
-    draw_big_line(win->buff, pos1, 10, sfRed);
-    draw_big_line(win->buff, pos2, 10, sfRed);
-    draw_big_line(win->buff, pos3, 10, sfRed);
-    draw_big_line(win->buff, pos4, 10, sfRed);
+    draw_line(win->buff, pos1, 10, sfRed);
+    draw_line(win->buff, pos2, 10, sfRed);
+    draw_line(win->buff, pos3, 10, sfRed);
+    draw_line(win->buff, pos4, 10, sfRed);
 }
-
 
 void    anime(int *tab[6], int *cnt)
 {
@@ -83,7 +82,6 @@ int     jeux_olym(int *nb_scren, my_window_t *win)
         draw_cadre(win);
         anime(tab, &cnt);
         *nb_scren += check(win);
-        //sfSleep(sfMilliseconds(50));
     }
     free(tab[0]);
     free(tab[1]);

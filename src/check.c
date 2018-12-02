@@ -11,20 +11,20 @@
 int     check(my_window_t *win)
 {
     while (sfRenderWindow_pollEvent(win->window, &(win->event))) {
+        if (win->tmp == 1) {
+            win->tmp = 0;
+            return (0);
+        }
         if (win->event.key.code == sfKeyEscape) {
             sfRenderWindow_close(win->window);
             return (0);
         }
-        if (win->event.key.code == sfKeyRight &&
-sfTime_asMilliseconds(sfClock_getElapsedTime(win->clock)) >= win->time) {
-            win->time = sfTime_asMilliseconds(sfClock_getElapsedTime
-(win->clock)) + 1000;
+        if (win->event.key.code == sfKeyRight && win->tmp == 0) {
+            win->tmp = 1;
             return (1);
         }
-        if (win->event.key.code == sfKeyLeft &&
-sfTime_asMilliseconds(sfClock_getElapsedTime(win->clock)) >= win->time) {
-            win->time = sfTime_asMilliseconds(sfClock_getElapsedTime
-(win->clock)) + 1000;
+        if (win->event.key.code == sfKeyLeft && win->tmp == 0) {
+            win->tmp = 1;
             return (-1);
         }
     }

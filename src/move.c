@@ -31,76 +31,88 @@ cos(tab[2]) * (tab[0] - y / 2) + y / 2) + 0.5), col);
     }
 }
 
-my_framebuff_t  *rotate(my_framebuff_t *buff, float angl)
+my_framebuff_t  *rotate(my_framebuff_t *buff, float angl, sfVector2u pos, int r)
 {
     my_framebuff_t      *replace;
-    float               tab[3] = {0, 0, angl};
+    float               tab[3] = {pos.y - r, pos.x - r, angl};
 
     if ((replace = my_framebuff_create(buff->width, buff->height)) == NULL)
         return (NULL);
-    while (tab[0] < buff->height) {
-        tab[1] = 0;
-        while (tab[1] < buff->width) {
+    while (tab[0] < pos.y + r) {
+        tab[1] = pos.x - r;
+        while (tab[1] < pos.x + r) {
             rotate_afect(buff, replace, tab);
             tab[1]++;
         }
         tab[0]++;
     }
+    delete_framebuff(buff);
     return (replace);
 }
 
-void            blur(my_framebuff_t *buff, int *tab)
+sfColor         set_color2(my_framebuff_t *buff, int i, int j)
 {
-    if (tab[1] + tab[3] >= 0 && tab[1] + tab[3] < buff->height &&
-tab[0] + tab[2] >= 0 && tab[0] + tab[2] < buff->width) {
-        tab[4] += buff->pixels[(buff->width * (tab[1] + tab[3]) + (tab[0] +
-tab[2])) * 4];
-        tab[5] += buff->pixels[(buff->width * (tab[1] + tab[3]) + (tab[0] +
-tab[2])) * 4 + 1];
-        tab[6] += buff->pixels[(buff->width * (tab[1] + tab[3]) + (tab[0] +
-tab[2])) * 4 + 2];
-        tab[7] += buff->pixels[(buff->width * (tab[1] + tab[3]) + (tab[0] +
-tab[2])) * 4 + 3];
-    }
+    sfColor color = {0, 0, 0, 0};
+
+    color.b = ((buff->pixels[(buff->width * (i - 1) + j - 1) * 4 + 2] +
+buff->pixels[(buff->width * (i - 1) + j) * 4 + 2] + buff->pixels[(buff->width
+* (i - 1) + j + 1) * 4 + 2] + buff->pixels[(buff->width * i + j - 1) * 4 + 2] +
+buff->pixels[(buff->width * i + j) * 4 + 2] + buff->pixels[(buff->width * i + j
++ 1) * 4 + 2] + buff->pixels[(buff->width * (i + 1) + j - 1) * 4 + 2] +
+buff->pixels[(buff->width * (i + 1) + j) * 4 + 2] + buff->pixels[(buff->width *
+(i + 1) + j + 1) * 4 + 2]) / 9);
+    color.a = ((buff->pixels[(buff->width * (i - 1) + j - 1) * 4 + 3] +
+buff->pixels[(buff->width * (i - 1) + j) * 4 + 3] + buff->pixels[(buff->width
+* (i - 1) + j + 1) * 4 + 3] + buff->pixels[(buff->width * i + j - 1) * 4 + 3] +
+buff->pixels[(buff->width * i + j) * 4 + 3] + buff->pixels[(buff->width * i + j
++ 1) * 4 + 3] + buff->pixels[(buff->width * (i + 1) + j - 1) * 4 + 3] +
+buff->pixels[(buff->width * (i + 1) + j) * 4 + 3] + buff->pixels[(buff->width *
+(i + 1) + j + 1) * 4 + 3]) / 9);
+    return (color);
 }
 
-void            set_blur(my_framebuff_t *rep, int *tab, int f)
+sfColor         set_color1(my_framebuff_t *buff, int i, int j)
 {
-    rep->pixels[(rep->width * tab[1] + tab[0]) * 4] = tab[4] /
-pow(f * 2 + 1, 2);
-    rep->pixels[(rep->width * tab[1] + tab[0]) * 4 + 1] = tab[5] /
-pow(f * 2 + 1, 2);
-    rep->pixels[(rep->width * tab[1] + tab[0]) * 4 + 2] = tab[6] /
-pow(f * 2 + 1, 2);
-    rep->pixels[(rep->width * tab[1] + tab[0]) * 4 + 3] = tab[7] /
-pow(f * 2 + 1, 2);
-    tab[4] = 0;
-    tab[5] = 0;
-    tab[6] = 0;
-    tab[7] = 0;
+    sfColor color = {0, 0, 0, 0};
+    sfColor tmp = {0, 0, 0, 0};
+
+    color.r = ((buff->pixels[(buff->width * (i - 1) + j - 1) * 4] +
+buff->pixels[(buff->width * (i - 1) + j) * 4] + buff->pixels[(buff->width
+* (i - 1) + j + 1) * 4] + buff->pixels[(buff->width * i + j - 1) * 4] +
+buff->pixels[(buff->width * i + j) * 4] + buff->pixels[(buff->width * i + j
++ 1) * 4] + buff->pixels[(buff->width * (i + 1) + j - 1) * 4] +
+buff->pixels[(buff->width * (i + 1) + j) * 4] + buff->pixels[(buff->width *
+(i + 1) + j + 1) * 4]) / 9);
+    color.g = ((buff->pixels[(buff->width * (i - 1) + j - 1) * 4 + 1] +
+buff->pixels[(buff->width * (i - 1) + j) * 4 + 1] + buff->pixels[(buff->width
+* (i - 1) + j + 1) * 4 + 1] + buff->pixels[(buff->width * i + j - 1) * 4 + 1] +
+buff->pixels[(buff->width * i + j) * 4 + 1] + buff->pixels[(buff->width * i + j
++ 1) * 4 + 1] + buff->pixels[(buff->width * (i + 1) + j - 1) * 4 + 1] +
+buff->pixels[(buff->width * (i + 1) + j) * 4 + 1] + buff->pixels[(buff->width *
+(i + 1) + j + 1) * 4 + 1]) / 9);
+    tmp = set_color2(buff, i, j);
+    color.b = tmp.b;
+    color.a = tmp.a;
+    return (color);
 }
 
-my_framebuff_t  *blurring(my_framebuff_t *buff, int force)
+my_framebuff_t  *blurring(my_framebuff_t *buff, sfVector2u pos, int r)
 {
-    my_framebuff_t      *rep = my_framebuff_create(buff->width, buff->height);
-    int                 tab[] = {0, 0, -force, -force, 0, 0, 0, 0};
+    my_framebuff_t  *rep = my_framebuff_create(buff->width, buff->height);
+    int i = pos.y - r;
+    int j = pos.x - r;
+    sfColor color = {0, 0, 0, 0};
 
-    while (tab[1] < buff->height) {
-        tab[0] = 0;
-        while (tab[0] < buff->width) {
-            tab[2] = -force;
-            while (tab[2] <= force) {
-                tab[3] = -force;
-                while (tab[3] <= force) {
-                    blur(buff, tab);
-                    tab[3]++;
-                }
-                tab[2]++;
-            }
-            set_blur(rep, tab, force);
-            tab[0]++;
+    clean(rep);
+    while (i < (int)pos.y + r) {
+        j = pos.x - r;
+        while (j < (int)pos.x + r) {
+            color = set_color1(buff, i, j);
+            put_pixel(rep, j, i, color);
+            j++;
         }
-        tab[1]++;
+        i++;
     }
+    delete_framebuff(buff);
     return (rep);
 }

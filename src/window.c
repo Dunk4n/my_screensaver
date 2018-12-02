@@ -32,13 +32,17 @@ LM, HM, 0, 0);
 
 int             window(int cnt)
 {
-    int (*fonc[])(int *nb_scren, my_window_t *win) = {&vinyl, &jeux_olym};
+    int (*fonc[])(int *nb_scren, my_window_t *win) = {&vinyl, &jeux_olym,
+&binary, &img, &infinit};
     my_window_t    *win = setwindow();
 
-    while (sfRenderWindow_isOpen(win->window) && cnt >= 0 && cnt <= 1) {
+    while (sfRenderWindow_isOpen(win->window) && cnt >= 0 && cnt <= NBS) {
         fonc[cnt](&cnt, win);
-        cnt = (cnt < 0) ? 1 : cnt;
-        cnt = (cnt > 1) ? 0 : cnt;
+        if (win->event.key.code == sfKeyRight ||
+win->event.key.code == sfKeyLeft)
+            cnt = cnt;
+        cnt = (cnt < 0) ? NBS : cnt;
+        cnt = (cnt > NBS) ? 0 : cnt;
     }
     sfClock_destroy(win->clock);
     delete_framebuff(win->buff);

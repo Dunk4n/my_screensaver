@@ -17,15 +17,20 @@ SRC	=	$(D_SRC)main.c		\
 		$(D_SRC)move.c		\
 		$(D_SRC)scren1.c	\
 		$(D_SRC)scren2.c	\
+		$(D_SRC)scren3.c	\
+		$(D_SRC)scren4.c	\
+		$(D_SRC)scren5.c	\
 		$(D_SRC)line.c		\
+		$(D_SRC)square.c	\
 		$(D_SRC)circle.c	\
+		$(D_SRC)ppm.c		\
 		$(D_SRC)check.c
 
 OBJ	=	$(SRC:%.c=%.o)
 
 NAME	=	my_screensaver
 
-CFLAGS	=	-W -Wall -Wextra -I$(D_INC) -g
+CFLAGS	=	-W -Wall -Wextra -I$(D_INC)
 
 LDFLAGS	=	-L$(D_LIB) -lmy
 

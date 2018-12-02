@@ -31,7 +31,7 @@ my_framebuff_t  *my_framebuff_create(int width, int height)
 
 my_window_t     *setwindow(void)
 {
-    my_window_t *win = malloc(sizeof(my_window_t));
+    my_window_t     *win = malloc(sizeof(my_window_t));
     sfVideoMode     video_mode;
 
     win->texture = sfTexture_create(LM, HM);
@@ -41,9 +41,10 @@ my_window_t     *setwindow(void)
     video_mode.bitsPerPixel = 32;
     win->window = sfRenderWindow_create(video_mode, "sc", sfFullscreen, NULL);
     sfSprite_setTexture(win->sprite, win->texture, sfTrue);
-    sfRenderWindow_setFramerateLimit(win->window, 30);
+    sfRenderWindow_setFramerateLimit(win->window, 60);
     if ((win->buff = my_framebuff_create(LM, HM)) == NULL)
         return (NULL);
     win->clock = sfClock_create();
+    win->tmp = 0;
     return (win);
 }
