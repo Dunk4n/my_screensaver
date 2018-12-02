@@ -23,7 +23,6 @@ SRC	=	$(D_SRC)main.c		\
 		$(D_SRC)line.c		\
 		$(D_SRC)square.c	\
 		$(D_SRC)circle.c	\
-		$(D_SRC)ppm.c		\
 		$(D_SRC)check.c
 
 OBJ	=	$(SRC:%.c=%.o)
