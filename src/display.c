@@ -9,7 +9,7 @@
 
 void    put_pixel(my_framebuff_t *framebuff, int x, int y, sfColor color)
 {
-    if (x > framebuff->width || x < 0 || y > framebuff->height || y < 0)
+    if (x >= framebuff->width || x < 0 || y >= framebuff->height || y < 0)
         return ;
     framebuff->pixels[(framebuff->width * y + x) * 4] = color.r;
     framebuff->pixels[(framebuff->width * y + x) * 4 + 1] = color.g;
@@ -23,7 +23,7 @@ void    put_add_pixel(my_framebuff_t *framebuff, int x, int y, sfColor color)
     int j;
     int k;
 
-    if (x > framebuff->width || x < 0 || y > framebuff->height || y < 0)
+    if (x >= framebuff->width || x < 0 || y >= framebuff->height || y < 0)
         return ;
     i = ((double)color.r * ((double)color.a / 255.0)) +
 ((double)framebuff->pixels[(framebuff->width * y + x) * 4]);
@@ -40,15 +40,15 @@ void    put_add_pixel(my_framebuff_t *framebuff, int x, int y, sfColor color)
     framebuff->pixels[(framebuff->width * y + x) * 4 + 3] = 255;
 }
 
-void    draw_square(my_framebuff_t *buff, sfVector2u pos, unsigned int size,
+void    square(my_framebuff_t *buff, sfVector2f pos, sfVector2i size,
 sfColor color)
 {
-    unsigned int i = 0;
-    unsigned int j = 0;
+    int i = 0;
+    int j = 0;
 
-    while (i < size) {
+    while (i < size.x) {
         j = 0;
-        while (j < size) {
+        while (j < size.y) {
             put_pixel(buff, pos.x + j, pos.y + i, color);
             j++;
         }

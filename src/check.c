@@ -27,6 +27,10 @@ int     check(my_window_t *win)
             win->tmp = 1;
             return (-1);
         }
+        if (win->event.key.code == sfKeyLAlt || win->event.key.code == sfKeyTab) {
+            sfRenderWindow_close(win->window);
+            return (0);
+        }
     }
     return (0);
 }

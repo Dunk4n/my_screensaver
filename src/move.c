@@ -13,21 +13,23 @@ void            rotate_afect(my_framebuff_t *buff, my_framebuff_t *replace,
 float *tab)
 {
     sfColor     col = {0, 0, 0, 0};
-    int         x = buff->width;
-    int         y = buff->height;
+    long double x = buff->width;
+    long double y = buff->height;
+    long double costab = cosl(tab[2]);
+    long double sintab = sinl(tab[2]);
 
     col.r = buff->pixels[(int)(buff->width * tab[0] + tab[1]) * 4];
     col.g = buff->pixels[(int)(buff->width * tab[0] + tab[1]) * 4 + 1];
     col.b = buff->pixels[(int)(buff->width * tab[0] + tab[1]) * 4 + 2];
     col.a = buff->pixels[(int)(buff->width * tab[0] + tab[1]) * 4 + 3];
-    if (((cos(tab[2]) * (tab[1] - x / 2) - sin(tab[2]) * (tab[0] - y / 2) + x /
-2) + 0.5) >= 0 && ((cos(tab[2]) * (tab[1] - x / 2) - sin(tab[2]) * (tab[0] - y
-/ 2) + x / 2) + 0.5) < x && ((sin(tab[2]) * (tab[1] - x / 2) + cos(tab[2]) *
-(tab[0] - y / 2) + y / 2) + 0.5) >= 0 && ((sin(tab[2]) * (tab[1] - x / 2) +
-cos(tab[2]) * (tab[0] - y / 2) + y / 2) + 0.5) < y) {
-        put_pixel(replace, (int)((cos(tab[2]) * (tab[1] - x / 2) - sin(tab[2]) *
-(tab[0] - y / 2) + x / 2) + 0.5), (int)((sin(tab[2]) * (tab[1] - x / 2) +
-cos(tab[2]) * (tab[0] - y / 2) + y / 2) + 0.5), col);
+    if (((costab * (tab[1] - x / 2) - sintab * (tab[0] - y / 2) + x /
+2) + 0.5) >= 0 && ((costab * (tab[1] - x / 2) - sintab * (tab[0] - y
+/ 2) + x / 2) + 0.5) < x && ((sintab * (tab[1] - x / 2) + costab *
+(tab[0] - y / 2) + y / 2) + 0.5) >= 0 && ((sintab * (tab[1] - x / 2) +
+costab * (tab[0] - y / 2) + y / 2) + 0.5) < y) {
+        put_pixel(replace, (int)(costab * (tab[1] - x / 2) - sintab *
+(tab[0] - y / 2) + x / 2), (int)(sintab * (tab[1] - x / 2) +
+costab * (tab[0] - y / 2) + y / 2), col);
     }
 }
 

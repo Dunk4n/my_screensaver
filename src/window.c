@@ -25,8 +25,7 @@ void    update(my_window_t *win)
 {
     sfRenderWindow_clear(win->window, sfWhite);
     sfRenderWindow_drawSprite(win->window, win->sprite, NULL);
-    sfTexture_updateFromPixels(win->texture, win->buff->pixels,
-LM, HM, 0, 0);
+    sfTexture_updateFromPixels(win->texture, win->buff->pixels, LM, HM, 0, 0);
     sfRenderWindow_display(win->window);
 }
 

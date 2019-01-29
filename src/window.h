@@ -38,8 +38,6 @@ int             check(my_window_t *win);
 void            update(my_window_t *win);
 void            put_pixel(my_framebuff_t *framebuff,
 int x, int y, sfColor color);
-void            draw_square(my_framebuff_t *buff, sfVector2u pos,
-unsigned int size, sfColor color);
 void            draw_vbord(my_framebuff_t *buff, sfVector2u pos, int r,
 sfColor color);
 my_window_t     *setwindow();

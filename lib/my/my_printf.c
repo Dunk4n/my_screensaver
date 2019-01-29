@@ -36,7 +36,7 @@ int     print_f(va_list list, char *str, int *i)
     if (str[*i] == '.' && str[*i + 2] == 'f' && str[*i + 1] >= '0' &&
 str[*i + 1] <= '9') {
         ++*i;
-        return(put_float(list, str[(++*i) - 1] - '0'));
+        return (put_float(list, str[(++*i) - 1] - '0'));
     }
     n += my_putchar('%');
     n += (str[*i] != '%' && str[*i] != '\0') ? my_putchar(str[*i]): 0;
