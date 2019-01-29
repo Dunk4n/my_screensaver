@@ -5,7 +5,7 @@
 ## Makefile
 ##
 
-
+PREFIX	=	/usr
 D_SRC	=	./src/
 D_INC	=	./include/
 D_LIB	=	./lib/my/
@@ -21,7 +21,6 @@ SRC	=	$(D_SRC)main.c		\
 		$(D_SRC)scren4.c	\
 		$(D_SRC)scren5.c	\
 		$(D_SRC)line.c		\
-		$(D_SRC)square.c	\
 		$(D_SRC)circle.c	\
 		$(D_SRC)check.c
 
@@ -51,8 +50,16 @@ $(NAME): $(OBJ)
 	gcc -o $(NAME) $(OBJ) $(LDFLAGS) -l csfml-graphics -l csfml-system -lm
 	rm -f $(OBJ)
 
+install: all
+	mkdir -p $(DESTDIR)$(PREFIX)/bin
+	cp -f my_screensaver $(DESTDIR)$(PREFIX)/bin
+	chmod 755 $(DESTDIR)$(PREFIX)/bin/my_screensaver
+
+uninstall:
+	rm -f $(DESTDIR)$(PREFIX)/bin/my_screensaver
+
 re	:
 		$(MAKE) fclean
 		$(MAKE) all
 
-.PHONY	:	 all clean fclean re
+.PHONY	:	 all clean fclean install uninstall re
