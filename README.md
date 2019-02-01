@@ -1,8 +1,8 @@
 # my_screensaver
 A screensaver writen in CSFML
 
-#information
+# information
 check -h
 
-#language
+# language
 C
